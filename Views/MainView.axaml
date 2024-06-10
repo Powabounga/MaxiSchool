@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MaxiSchool.Views"
+             x:Class="MaxiSchool.Views.MainView">
+    <TabControl>
+        <TabItem Header="Classes">
+            <local:ClasseView />
+        </TabItem>
+        <TabItem Header="Subjects">
+            <local:MatiereView />
+        </TabItem>
+        <TabItem Header="Students">
+            <local:EleveView />
+        </TabItem>
+        <TabItem Header="Teachers">
+            <local:ProfesseurView />
+        </TabItem>
+    </TabControl>
+</UserControl>

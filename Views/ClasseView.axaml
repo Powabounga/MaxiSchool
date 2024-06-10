@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:MaxiSchool.ViewModels"
+             xmlns:models="clr-namespace:MaxiSchool.Models"
+             mc:Ignorable="d"
+             x:Class="MaxiSchool.Views.ClasseView"
+             x:DataType="viewModels:ClasseViewModel">
+    <UserControl.DataContext>
+        <viewModels:ClasseViewModel />
+    </UserControl.DataContext>
+    <StackPanel>
+        <ListBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClasse}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Classe}">
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Watermark="Class Name" Text="{Binding NewClassName}" />
+        <Button Content="Add Class" Command="{Binding AddClasseCommand}" />
+        <Button Content="Delete Class" Command="{Binding DeleteClasseCommand}" IsEnabled="{Binding SelectedClasse}" />
+    </StackPanel>
+</UserControl>

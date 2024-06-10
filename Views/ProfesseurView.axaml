@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:MaxiSchool.ViewModels"
+             xmlns:models="clr-namespace:MaxiSchool.Models"
+             mc:Ignorable="d"
+             x:Class="MaxiSchool.Views.ProfesseurView"
+             x:DataType="viewModels:ProfesseurViewModel">
+    <UserControl.DataContext>
+        <viewModels:ProfesseurViewModel />
+    </UserControl.DataContext>
+    <StackPanel>
+        <ListBox ItemsSource="{Binding Professeurs}" SelectedItem="{Binding SelectedProfesseur}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Professeur}">
+                    <TextBlock Text="{Binding LastName}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Watermark="First Name" Text="{Binding NewProfesseurFirstName}" />
+        <TextBox Watermark="Last Name" Text="{Binding NewProfesseurLastName}" />
+        <Button Content="Add Teacher" Command="{Binding AddProfesseurCommand}" />
+        <Button Content="Delete Teacher" Command="{Binding DeleteProfesseurCommand}" IsEnabled="{Binding SelectedProfesseur}" />
+    </StackPanel>
+</UserControl>
