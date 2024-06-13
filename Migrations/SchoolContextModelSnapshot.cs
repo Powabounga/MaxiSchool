@@ -21,45 +21,30 @@ namespace MaxiSchool.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("MatiereProfesseur", b =>
-                {
-                    b.Property<int>("MatieresMatiereId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfesseursProfesseurId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MatieresMatiereId", "ProfesseursProfesseurId");
-
-                    b.HasIndex("ProfesseursProfesseurId");
-
-                    b.ToTable("MatiereProfesseur");
-                });
-
             modelBuilder.Entity("MaxiSchool.Models.Classe", b =>
                 {
-                    b.Property<int>("ClasseId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ClasseId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("ClasseId");
+                    b.HasKey("Id");
 
                     b.ToTable("Classes", (string)null);
                 });
 
             modelBuilder.Entity("MaxiSchool.Models.Eleve", b =>
                 {
-                    b.Property<int>("EleveId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EleveId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ClasseId")
                         .HasColumnType("int");
@@ -72,7 +57,7 @@ namespace MaxiSchool.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("EleveId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ClasseId");
 
@@ -81,28 +66,28 @@ namespace MaxiSchool.Migrations
 
             modelBuilder.Entity("MaxiSchool.Models.Matiere", b =>
                 {
-                    b.Property<int>("MatiereId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("MatiereId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("MatiereId");
+                    b.HasKey("Id");
 
                     b.ToTable("Matieres", (string)null);
                 });
 
             modelBuilder.Entity("MaxiSchool.Models.Professeur", b =>
                 {
-                    b.Property<int>("ProfesseurId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ProfesseurId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -112,24 +97,14 @@ namespace MaxiSchool.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("ProfesseurId");
+                    b.Property<int>("MatiereId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatiereId");
 
                     b.ToTable("Professeurs", (string)null);
-                });
-
-            modelBuilder.Entity("MatiereProfesseur", b =>
-                {
-                    b.HasOne("MaxiSchool.Models.Matiere", null)
-                        .WithMany()
-                        .HasForeignKey("MatieresMatiereId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MaxiSchool.Models.Professeur", null)
-                        .WithMany()
-                        .HasForeignKey("ProfesseursProfesseurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MaxiSchool.Models.Eleve", b =>
@@ -143,9 +118,25 @@ namespace MaxiSchool.Migrations
                     b.Navigation("Classe");
                 });
 
+            modelBuilder.Entity("MaxiSchool.Models.Professeur", b =>
+                {
+                    b.HasOne("MaxiSchool.Models.Matiere", "Matiere")
+                        .WithMany("Professeurs")
+                        .HasForeignKey("MatiereId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Matiere");
+                });
+
             modelBuilder.Entity("MaxiSchool.Models.Classe", b =>
                 {
                     b.Navigation("Eleves");
+                });
+
+            modelBuilder.Entity("MaxiSchool.Models.Matiere", b =>
+                {
+                    b.Navigation("Professeurs");
                 });
 #pragma warning restore 612, 618
         }

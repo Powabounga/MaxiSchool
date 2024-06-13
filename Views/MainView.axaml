@@ -1,19 +1,21 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MaxiSchool.Views"
-             x:Class="MaxiSchool.Views.MainView">
+             xmlns:viewModels="clr-namespace:MaxiSchool.ViewModels"
+             x:Class="MaxiSchool.Views.MainView"
+             x:DataType="viewModels:MainViewModel">
     <TabControl>
         <TabItem Header="Classes">
-            <local:ClasseView />
+            <local:ClasseView DataContext="{Binding ClasseViewModel}" />
         </TabItem>
-        <TabItem Header="Subjects">
-            <local:MatiereView />
+        <TabItem Header="Matières">
+            <local:MatiereView DataContext="{Binding MatiereViewModel}" />
         </TabItem>
-        <TabItem Header="Students">
-            <local:EleveView />
+        <TabItem Header="Elèves">
+            <local:EleveView DataContext="{Binding EleveViewModel}" />
         </TabItem>
-        <TabItem Header="Teachers">
-            <local:ProfesseurView />
+        <TabItem Header="Professeurs">
+            <local:ProfesseurView DataContext="{Binding ProfesseurViewModel}" />
         </TabItem>
     </TabControl>
 </UserControl>

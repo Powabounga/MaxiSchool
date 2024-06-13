@@ -16,6 +16,7 @@
           "Avalonia.Themes.Fluent": "11.0.10",
           "Microsoft.CodeAnalysis.CSharp": "4.5.0",
           "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.6",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2"
         },

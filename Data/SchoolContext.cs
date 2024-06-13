@@ -1,9 +1,9 @@
 using System;
-using MaxiSchool.Models;
 using Microsoft.EntityFrameworkCore;
+using MaxiSchool.Models;
 
 namespace MaxiSchool.Data;
-
+    
 public class SchoolContext : DbContext
 {
     public DbSet<Classe> Classes { get; set; }
@@ -23,5 +23,17 @@ public class SchoolContext : DbContext
         modelBuilder.Entity<Matiere>().ToTable("Matieres");
         modelBuilder.Entity<Eleve>().ToTable("Eleves");
         modelBuilder.Entity<Professeur>().ToTable("Professeurs");
+    
+        modelBuilder.Entity<Eleve>()
+            .HasOne(e => e.Classe)
+            .WithMany(c => c.Eleves)
+            .HasForeignKey(e => e.ClasseId);
+
+        modelBuilder.Entity<Professeur>()
+            .HasOne(p => p.Matiere)
+            .WithMany(m => m.Professeurs)
+            .HasForeignKey(p => p.MatiereId);
     }
 }
+    
+

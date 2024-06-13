@@ -18,14 +18,14 @@ namespace MaxiSchool.Migrations
                 name: "Classes",
                 columns: table => new
                 {
-                    ClasseId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Classes", x => x.ClasseId);
+                    table.PrimaryKey("PK_Classes", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -33,31 +33,14 @@ namespace MaxiSchool.Migrations
                 name: "Matieres",
                 columns: table => new
                 {
-                    MatiereId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Matieres", x => x.MatiereId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Professeurs",
-                columns: table => new
-                {
-                    ProfesseurId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LastName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Professeurs", x => x.ProfesseurId);
+                    table.PrimaryKey("PK_Matieres", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -65,7 +48,7 @@ namespace MaxiSchool.Migrations
                 name: "Eleves",
                 columns: table => new
                 {
-                    EleveId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -75,37 +58,36 @@ namespace MaxiSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Eleves", x => x.EleveId);
+                    table.PrimaryKey("PK_Eleves", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Eleves_Classes_ClasseId",
                         column: x => x.ClasseId,
                         principalTable: "Classes",
-                        principalColumn: "ClasseId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "MatiereProfesseur",
+                name: "Professeurs",
                 columns: table => new
                 {
-                    MatieresMatiereId = table.Column<int>(type: "int", nullable: false),
-                    ProfesseursProfesseurId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LastName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MatiereId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MatiereProfesseur", x => new { x.MatieresMatiereId, x.ProfesseursProfesseurId });
+                    table.PrimaryKey("PK_Professeurs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MatiereProfesseur_Matieres_MatieresMatiereId",
-                        column: x => x.MatieresMatiereId,
+                        name: "FK_Professeurs_Matieres_MatiereId",
+                        column: x => x.MatiereId,
                         principalTable: "Matieres",
-                        principalColumn: "MatiereId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MatiereProfesseur_Professeurs_ProfesseursProfesseurId",
-                        column: x => x.ProfesseursProfesseurId,
-                        principalTable: "Professeurs",
-                        principalColumn: "ProfesseurId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -116,9 +98,9 @@ namespace MaxiSchool.Migrations
                 column: "ClasseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MatiereProfesseur_ProfesseursProfesseurId",
-                table: "MatiereProfesseur",
-                column: "ProfesseursProfesseurId");
+                name: "IX_Professeurs_MatiereId",
+                table: "Professeurs",
+                column: "MatiereId");
         }
 
         /// <inheritdoc />
@@ -128,16 +110,13 @@ namespace MaxiSchool.Migrations
                 name: "Eleves");
 
             migrationBuilder.DropTable(
-                name: "MatiereProfesseur");
+                name: "Professeurs");
 
             migrationBuilder.DropTable(
                 name: "Classes");
 
             migrationBuilder.DropTable(
                 name: "Matieres");
-
-            migrationBuilder.DropTable(
-                name: "Professeurs");
         }
     }
 }

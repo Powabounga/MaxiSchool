@@ -4,8 +4,9 @@ namespace MaxiSchool.Models;
 
 public class Professeur
 {
-    public int ProfesseurId { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public List<Matiere>? Matieres { get; set; }
+    public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public int MatiereId { get; set; }
+    public Matiere Matiere { get; set; }
 }

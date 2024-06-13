@@ -1,26 +1,31 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MaxiSchool.ViewModels"
              xmlns:models="clr-namespace:MaxiSchool.Models"
-             mc:Ignorable="d"
              x:Class="MaxiSchool.Views.ProfesseurView"
              x:DataType="viewModels:ProfesseurViewModel">
-    <UserControl.DataContext>
-        <viewModels:ProfesseurViewModel />
-    </UserControl.DataContext>
     <StackPanel>
         <ListBox ItemsSource="{Binding Professeurs}" SelectedItem="{Binding SelectedProfesseur}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Professeur}">
-                    <TextBlock Text="{Binding LastName}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}" Margin="0,0,10,0" />
+                        <TextBlock Text="{Binding LastName}" Margin="0,0,10,0" />
+                        <TextBlock Text="{Binding Matiere.Name}" />
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox Watermark="First Name" Text="{Binding NewProfesseurFirstName}" />
-        <TextBox Watermark="Last Name" Text="{Binding NewProfesseurLastName}" />
-        <Button Content="Add Teacher" Command="{Binding AddProfesseurCommand}" />
-        <Button Content="Delete Teacher" Command="{Binding DeleteProfesseurCommand}" IsEnabled="{Binding SelectedProfesseur}" />
+        <ComboBox ItemsSource="{Binding Matieres}" SelectedItem="{Binding SelectedMatiere}" PlaceholderText="Choisir une matière">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Matiere}">
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Watermark="Prénom" Text="{Binding NewProfesseurFirstName}" />
+        <TextBox Watermark="Nom" Text="{Binding NewProfesseurLastName}" />
+        <Button Content="Ajouter un professeur" Command="{Binding AddProfesseurCommand}" />
+        <Button Content="Supprimer un professeur" Command="{Binding DeleteProfesseurCommand}" IsEnabled="{Binding SelectedProfesseur}" />
     </StackPanel>
 </UserControl>

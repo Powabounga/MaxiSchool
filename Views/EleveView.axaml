@@ -1,26 +1,31 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MaxiSchool.ViewModels"
              xmlns:models="clr-namespace:MaxiSchool.Models"
-             mc:Ignorable="d"
              x:Class="MaxiSchool.Views.EleveView"
              x:DataType="viewModels:EleveViewModel">
-    <UserControl.DataContext>
-        <viewModels:EleveViewModel />
-    </UserControl.DataContext>
     <StackPanel>
         <ListBox ItemsSource="{Binding Eleves}" SelectedItem="{Binding SelectedEleve}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Eleve}">
-                    <TextBlock Text="{Binding LastName}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}" Margin="0,0,10,0" />
+                        <TextBlock Text="{Binding LastName}" Margin="0,0,10,0" />
+                        <TextBlock Text="{Binding Classe.Name}" />
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox Watermark="First Name" Text="{Binding NewEleveFirstName}" />
-        <TextBox Watermark="Last Name" Text="{Binding NewEleveLastName}" />
-        <Button Content="Add Student" Command="{Binding AddEleveCommand}" />
-        <Button Content="Delete Student" Command="{Binding DeleteEleveCommand}" IsEnabled="{Binding SelectedEleve}" />
+        <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClasse}" PlaceholderText="Choisir une classe">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Classe}">
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Watermark="Prénom" Text="{Binding NewEleveFirstName}" />
+        <TextBox Watermark="Nom" Text="{Binding NewEleveLastName}" />
+        <Button Content="Ajouter un élève" Command="{Binding AddEleveCommand}" />
+        <Button Content="Supprimer un élève" Command="{Binding DeleteEleveCommand}" IsEnabled="{Binding SelectedEleve}" />
     </StackPanel>
 </UserControl>

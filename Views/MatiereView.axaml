@@ -1,15 +1,9 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MaxiSchool.ViewModels"
              xmlns:models="clr-namespace:MaxiSchool.Models"
-             mc:Ignorable="d"
              x:Class="MaxiSchool.Views.MatiereView"
              x:DataType="viewModels:MatiereViewModel">
-    <UserControl.DataContext>
-        <viewModels:MatiereViewModel />
-    </UserControl.DataContext>
     <StackPanel>
         <ListBox ItemsSource="{Binding Matieres}" SelectedItem="{Binding SelectedMatiere}">
             <ListBox.ItemTemplate>
@@ -18,8 +12,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox Watermark="Subject Name" Text="{Binding NewMatiereName}" />
-        <Button Content="Add Subject" Command="{Binding AddMatiereCommand}" />
-        <Button Content="Delete Subject" Command="{Binding DeleteMatiereCommand}" IsEnabled="{Binding SelectedMatiere}" />
+        <TextBox Watermark="Nom de la matière" Text="{Binding NewMatiereName}" />
+        <Button Content="Ajouter une matière" Command="{Binding AddMatiereCommand}" />
+        <Button Content="Supprimer une matière" Command="{Binding DeleteMatiereCommand}" IsEnabled="{Binding SelectedMatiere}" />
     </StackPanel>
 </UserControl>
